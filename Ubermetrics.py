@@ -27,6 +27,8 @@ class UbermetricsController(NSWindowController):
     sheetNameTextField = objc.IBOutlet()
     rangeTextField = objc.IBOutlet()
 
+    checkBox = objc.IBOutlet()
+
     def windowDidLoad(self):
         NSWindowController.windowDidLoad(self)
 
@@ -87,6 +89,10 @@ class UbermetricsController(NSWindowController):
         self.range = self.temp["range"]
         if self.range != '':
             self.rangeTextField.setStringValue_(self.range)
+
+
+        # Checkbox to choose to display only numeric values or no
+        self.checkBox.setState_(int(self.temp["checkBox"]))
 
         # self.startDatePicker.setTimeZone_(NSTimeZone.localTimeZone())
         # NSLog(str(self.startDatePicker.timeZone()))
@@ -217,7 +223,11 @@ class UbermetricsController(NSWindowController):
     @objc.IBAction
     def fillSpreadsheet_(self, sender):
         if self.values != []:
-            fill_spreadsheet(self.serviceSheets, self.spreadsheetId, self.sheetName, self.range, self.values)
+            self.temp["checkBox"] = self.checkBox.state()
+            if str(self.checkBox.state()) == '1':
+                fill_spreadsheet(self.serviceSheets, self.spreadsheetId, self.sheetName, self.range, [[value[1]] for value in self.values])
+            else:
+                fill_spreadsheet(self.serviceSheets, self.spreadsheetId, self.sheetName, self.range, self.values)
             with open(self.dirpath + 'temp.json', 'w') as f:
                 json.dump(self.temp, f, indent=4)
         else:
