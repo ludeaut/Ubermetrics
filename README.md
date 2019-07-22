@@ -19,6 +19,7 @@ Here are the commands to run:
   * sudo pip3 install py2app
 * In order to use the different API, you will have to start a Google project and to create credentials.
 Everything you need to know to do it is here: https://console.developers.google.com/apis/credentials.
+Don't forget to add the JSON files in the working directory.
 * Still in the Google project, you will need to enable Google Analytics Reporting and Google Sheets in the APIs.
 
 # How to build the application
