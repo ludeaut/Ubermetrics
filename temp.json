@@ -1,0 +1,13 @@
+{
+    "viewId": "48213793",
+    "startDate": "2019-07-07",
+    "endDate": "2019-07-22",
+    "metrics": "sessions",
+    "dimensions": "channelGrouping",
+    "sort": "sessions_desc",
+    "filters": "sessions>200;channelGrouping==Email",
+    "maxResults": "5",
+    "spreadsheetId": "1BMrOh20xeuiMS_6t-Axxr_R09UYLREaHPIdr-N-7tvs",
+    "sheetName": "Sheet2",
+    "range": "B3"
+}

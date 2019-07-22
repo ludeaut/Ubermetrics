@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="UbermetricsController">
+            <connections>
+                <outlet property="dimensionsTextField" destination="8cM-vp-kVZ" id="70B-QT-W9s"/>
+                <outlet property="endDatePicker" destination="vun-2H-bf2" id="Ohr-xt-MDQ"/>
+                <outlet property="filtersTextField" destination="6N2-x3-GBi" id="kPv-p3-ENa"/>
+                <outlet property="maxResultsTextField" destination="e58-RJ-LQe" id="LRE-uQ-fYL"/>
+                <outlet property="metricsTextField" destination="Fx6-b8-0qh" id="PiZ-gE-fbU"/>
+                <outlet property="rangeTextField" destination="0I8-3e-TP6" id="QOb-hK-yWt"/>
+                <outlet property="sheetNameTextField" destination="ga1-Me-vtV" id="Mmx-h3-OR4"/>
+                <outlet property="sortTextField" destination="6fc-kX-Fdr" id="e6d-fW-366"/>
+                <outlet property="spreadsheetIdTextField" destination="fDt-H4-vps" id="jfC-EW-EFM"/>
+                <outlet property="startDatePicker" destination="uUZ-iN-SCv" id="WJh-3I-SRh"/>
+                <outlet property="valueTextField" destination="1MQ-vI-axU" id="eBR-kI-Fay"/>
+                <outlet property="viewIdTextField" destination="RHV-fZ-Wga" id="f8N-XA-mXE"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" wantsLayer="YES" misplaced="YES" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="526" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1MQ-vI-axU">
+                        <rect key="frame" x="3" y="95" width="520" height="17"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Waiting for you to push the button..." id="QDL-ty-9L5">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fwb-PO-xWO">
+                        <rect key="frame" x="207" y="-2" width="112" height="32"/>
+                        <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PoJ-03-DTG">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="terminate:" target="-1" id="G99-KV-Tcm"/>
+                        </connections>
+                    </button>
+                    <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gI0-lr-8FR">
+                        <rect key="frame" x="25" y="237" width="476" height="23"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RHV-fZ-Wga">
+                                <rect key="frame" x="0.0" y="1" width="110" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="View ID" drawsBackground="YES" id="5Pk-Fw-n8l">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="enterViewID:" target="-2" id="taR-ry-iuN"/>
+                                </connections>
+                            </textField>
+                            <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uUZ-iN-SCv">
+                                <rect key="frame" x="122" y="0.0" width="113" height="27"/>
+                                <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="iuu-HB-MJq">
+                                    <font key="font" metaFont="system"/>
+                                    <date key="date" timeIntervalSinceReferenceDate="-595843200">
+                                        <!--1982-02-13 16:00:00 +0000-->
+                                    </date>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                </datePickerCell>
+                                <connections>
+                                    <action selector="setStartDate:" target="-2" id="Ygw-Gj-TC1"/>
+                                </connections>
+                            </datePicker>
+                            <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vun-2H-bf2">
+                                <rect key="frame" x="244" y="0.0" width="113" height="27"/>
+                                <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="Kj8-O8-CPl">
+                                    <font key="font" metaFont="system"/>
+                                    <date key="date" timeIntervalSinceReferenceDate="-595929600">
+                                        <!--1982-02-12 16:00:00 +0000-->
+                                    </date>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                </datePickerCell>
+                                <connections>
+                                    <action selector="setEndDate:" target="-2" id="20D-P8-pNJ"/>
+                                </connections>
+                            </datePicker>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fx6-b8-0qh">
+                                <rect key="frame" x="366" y="1" width="110" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Metric(s)" drawsBackground="YES" id="lAu-sY-jV6">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="enterMetrics:" target="-2" id="Mux-ri-Su6"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <visibilityPriorities>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                        </visibilityPriorities>
+                        <customSpacing>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                        </customSpacing>
+                    </stackView>
+                    <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="19" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Y3-BN-bD0">
+                        <rect key="frame" x="25" y="195" width="476" height="22"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8cM-vp-kVZ">
+                                <rect key="frame" x="0.0" y="0.0" width="146" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Dimension(s)" drawsBackground="YES" id="F7O-9k-H9i">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="enterDimensions:" target="-2" id="E07-KI-q27"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6fc-kX-Fdr">
+                                <rect key="frame" x="165" y="0.0" width="146" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Sort choices" drawsBackground="YES" id="2MP-NL-IvN">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="enterSort:" target="-2" id="2m2-Rm-rUQ"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e58-RJ-LQe">
+                                <rect key="frame" x="330" y="0.0" width="146" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Number max of results" drawsBackground="YES" id="m9z-AR-fIE">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="setMaxResults:" target="-2" id="Sc2-8g-lQL"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <visibilityPriorities>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                        </visibilityPriorities>
+                        <customSpacing>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                        </customSpacing>
+                    </stackView>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6N2-x3-GBi">
+                        <rect key="frame" x="25" y="153" width="476" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="Filters" drawsBackground="YES" id="8Xh-TE-i0c">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <action selector="enterFilters:" target="-2" id="9FG-Ko-GUR"/>
+                        </connections>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JYF-QP-AUc">
+                        <rect key="frame" x="117" y="115" width="292" height="32"/>
+                        <buttonCell key="cell" type="push" title="Push the button to get the values!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vHy-Bg-mGS">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="displayValue:" target="-2" id="HXG-Zt-mbC"/>
+                        </connections>
+                    </button>
+                    <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="19" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P3H-qA-5E4">
+                        <rect key="frame" x="25" y="67" width="476" height="22"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fDt-H4-vps">
+                                <rect key="frame" x="0.0" y="0.0" width="146" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="SpreadsheetID" drawsBackground="YES" id="Wci-gu-ejS">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="setSpreadsheetID:" target="-2" id="kP1-ws-pAA"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ga1-Me-vtV">
+                                <rect key="frame" x="165" y="0.0" width="146" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Sheet name" drawsBackground="YES" id="mGC-m5-PBr">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="setSheetName:" target="-2" id="45g-Iy-jlF"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0I8-3e-TP6">
+                                <rect key="frame" x="330" y="0.0" width="146" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Range (ex A1:B2)" drawsBackground="YES" id="AbW-DA-1Jo">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="setRange:" target="-2" id="hsD-5h-BfN"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <visibilityPriorities>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                        </visibilityPriorities>
+                        <customSpacing>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                        </customSpacing>
+                    </stackView>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IcW-QS-0r0">
+                        <rect key="frame" x="117" y="29" width="292" height="32"/>
+                        <buttonCell key="cell" type="push" title="Push the button to fill the spreadsheet!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cj6-v6-GTU">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="fillSpreadsheet:" target="-2" id="UgT-Pc-sHR"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AQL-p4-e8B">
+                        <rect key="frame" x="19" y="-2" width="175" height="32"/>
+                        <buttonCell key="cell" type="push" title="Erase previous values" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dR5-Eq-jh5">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="emptyValues:" target="-2" id="eKV-X9-U1e"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="AQL-p4-e8B" firstAttribute="top" secondItem="IcW-QS-0r0" secondAttribute="bottom" constant="10" id="2GV-pM-nRt"/>
+                    <constraint firstAttribute="trailing" secondItem="IcW-QS-0r0" secondAttribute="trailing" constant="123" id="5a0-lB-hNt"/>
+                    <constraint firstItem="fwb-PO-xWO" firstAttribute="leading" secondItem="AQL-p4-e8B" secondAttribute="trailing" constant="25" id="5pr-ja-Xce"/>
+                    <constraint firstItem="gI0-lr-8FR" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="10" id="6Ic-dk-qyF"/>
+                    <constraint firstItem="2Y3-BN-bD0" firstAttribute="top" secondItem="gI0-lr-8FR" secondAttribute="bottom" constant="20" id="6Xw-Q6-l1Z"/>
+                    <constraint firstItem="JYF-QP-AUc" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="123" id="8Cj-ka-Z8c"/>
+                    <constraint firstItem="gI0-lr-8FR" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="25" id="BHM-fx-4H3"/>
+                    <constraint firstItem="1MQ-vI-axU" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="5" id="ECh-Ia-mAZ"/>
+                    <constraint firstItem="fwb-PO-xWO" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="213" id="J33-Tq-bpD"/>
+                    <constraint firstItem="IcW-QS-0r0" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="123" id="KHH-EG-jQx"/>
+                    <constraint firstItem="1MQ-vI-axU" firstAttribute="top" secondItem="JYF-QP-AUc" secondAttribute="bottom" constant="10" id="ScB-Y0-bUk"/>
+                    <constraint firstItem="fwb-PO-xWO" firstAttribute="top" secondItem="IcW-QS-0r0" secondAttribute="bottom" constant="10" id="TrY-ly-jEx"/>
+                    <constraint firstAttribute="trailing" secondItem="P3H-qA-5E4" secondAttribute="trailing" constant="25" id="Vt0-pt-Km1"/>
+                    <constraint firstAttribute="trailing" secondItem="JYF-QP-AUc" secondAttribute="trailing" constant="123" id="WwQ-zy-tWk"/>
+                    <constraint firstItem="IcW-QS-0r0" firstAttribute="top" secondItem="P3H-qA-5E4" secondAttribute="bottom" constant="10" id="ZLx-bN-dNV"/>
+                    <constraint firstAttribute="trailing" secondItem="6N2-x3-GBi" secondAttribute="trailing" constant="25" id="Zyj-Vd-ZKl"/>
+                    <constraint firstAttribute="trailing" secondItem="gI0-lr-8FR" secondAttribute="trailing" constant="25" id="cPd-HL-TBZ"/>
+                    <constraint firstItem="AQL-p4-e8B" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="25" id="dZG-GA-g7T"/>
+                    <constraint firstItem="6N2-x3-GBi" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="25" id="eaU-sZ-4dJ"/>
+                    <constraint firstAttribute="trailing" secondItem="fwb-PO-xWO" secondAttribute="trailing" constant="213" id="hqa-9H-7Tj"/>
+                    <constraint firstAttribute="bottom" secondItem="fwb-PO-xWO" secondAttribute="bottom" constant="5" id="iEM-MU-axP"/>
+                    <constraint firstItem="2Y3-BN-bD0" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="25" id="oEB-qE-5NC"/>
+                    <constraint firstAttribute="trailing" secondItem="2Y3-BN-bD0" secondAttribute="trailing" constant="25" id="qae-wZ-hM6"/>
+                    <constraint firstAttribute="bottom" secondItem="AQL-p4-e8B" secondAttribute="bottom" constant="5" id="t0k-35-j3f"/>
+                    <constraint firstItem="6N2-x3-GBi" firstAttribute="top" secondItem="2Y3-BN-bD0" secondAttribute="bottom" constant="20" id="vRM-N2-2mW"/>
+                    <constraint firstItem="JYF-QP-AUc" firstAttribute="top" secondItem="6N2-x3-GBi" secondAttribute="bottom" constant="10" id="w7l-UD-2hE"/>
+                    <constraint firstItem="P3H-qA-5E4" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="25" id="xr2-v9-Xd9"/>
+                    <constraint firstAttribute="trailing" secondItem="1MQ-vI-axU" secondAttribute="trailing" constant="5" id="y0g-0k-WpU"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="141" y="147"/>
+        </window>
+    </objects>
+</document>
