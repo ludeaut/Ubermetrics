@@ -9,5 +9,6 @@
     "maxResults": "5",
     "spreadsheetId": "1BMrOh20xeuiMS_6t-Axxr_R09UYLREaHPIdr-N-7tvs",
     "sheetName": "Sheet2",
-    "range": "B3"
+    "range": "B5",
+    "checkBox": 1
 }
