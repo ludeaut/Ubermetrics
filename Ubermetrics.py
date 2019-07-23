@@ -129,7 +129,7 @@ class UbermetricsController(NSWindowController):
 
     @objc.IBAction
     def enterViewID_(self, sender): # Must have 7 to 9 figures to write
-        if self.viewIdTextField.stringValue().isnumeric():
+        if self.viewIdTextField.stringValue(): #.isnumeric()
             self.viewId = self.viewIdTextField.stringValue()
             self.temp["viewId"] = str(self.viewId)
         else:
@@ -211,15 +211,19 @@ class UbermetricsController(NSWindowController):
     @objc.IBAction
     def displayValue_(self, sender):
         if self.viewId != 0 and self.startDate <= self.endDate and self.metrics != '':
-            value = functions.get_value(self.serviceAnalytics, self.viewId, str(self.startDate), str(self.endDate), self.metrics, self.dimensions, self.sort, self.filters, self.maxResults)
-            if value == 0.0:
-                self.value = functions.str_from_list([[value]])
-                self.values += [['', value]]
-            else:
-                self.value = functions.str_from_list(value)
-                self.values += value
-            with open(self.dirpath + 'temp.json', 'w') as f:
-                json.dump(self.temp, f, indent=4)
+            self.value = ''
+            viewIds = self.viewId.split(',')
+            for viewId in viewIds:
+                value = functions.get_value(self.serviceAnalytics, viewId, str(self.startDate), str(self.endDate), self.metrics, self.dimensions, self.sort, self.filters, self.maxResults)
+                if value == 0.0:
+                    self.value += functions.str_from_list([[value]])
+                    self.values += [['', value]]
+                else:
+                    self.value += functions.str_from_list(value)
+                    self.values += value
+                with open(self.dirpath + 'temp.json', 'w') as f:
+                    json.dump(self.temp, f, indent=4)
+                self.value += '\n' + '---------------------' + '\n'
         else:
             if self.viewId == 0:
                 self.value = 'You must enter a view ID'
