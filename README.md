@@ -33,13 +33,15 @@ Don't forget to add the JSON files in the working directory.
 * Add segments filtering
 * Add possibility to fill fields from a spreadsheet
 * Add some conditions on input
+* Set a back up of the data?
 
 # Note(s)
 * If all the required fields are filled but no value is displayed, there are multiple possibilities but the most common are:
  * You made a typing mistake,
- * You entered at least one value which doesn't exist
- * You entered dimensions and/or metrics which can't be used together
- * You added filters and/or sort conditions on metrics/dimensions unused
+ * You entered at least one value which doesn't exist,
+ * You entered dimensions and/or metrics which can't be used together,
+ * You added filters and/or sort conditions on metrics/dimensions unused.
+* Ctrl-Z doesn't work so be careful when you select the spreadsheet to write in.
 
 
 # Documentation
