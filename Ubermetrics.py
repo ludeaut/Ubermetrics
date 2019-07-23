@@ -90,7 +90,6 @@ class UbermetricsController(NSWindowController):
         if self.range != '':
             self.rangeTextField.setStringValue_(self.range)
 
-
         # Checkbox to choose to display only numeric values or no
         self.checkBox.setState_(int(self.temp["checkBox"]))
 
@@ -123,7 +122,7 @@ class UbermetricsController(NSWindowController):
             self.updateDisplay()
 
     @objc.IBAction
-    def enterViewID_(self, sender): # Must have 8 figures to write
+    def enterViewID_(self, sender): # Must have 7 to 9 figures to write
         if self.viewIdTextField.stringValue().isnumeric():
             self.viewId = self.viewIdTextField.stringValue()
             self.temp["viewId"] = str(self.viewId)
@@ -207,8 +206,12 @@ class UbermetricsController(NSWindowController):
     def displayValue_(self, sender):
         if self.viewId != 0 and self.startDate <= self.endDate and self.metrics != '':
             value = get_value(self.serviceAnalytics, self.viewId, str(self.startDate), str(self.endDate), self.metrics, self.dimensions, self.sort, self.filters, self.maxResults)
-            self.value = str_from_list(value)
-            self.values += value
+            if value == 0.0:
+                self.value = str_from_list([[value]])
+                self.values += [['', value]]
+            else:
+                self.value = str_from_list(value)
+                self.values += value
             with open(self.dirpath + 'temp.json', 'w') as f:
                 json.dump(self.temp, f, indent=4)
         else:
