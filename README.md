@@ -6,6 +6,7 @@ and eventually to paste it in one of your Google Spreadsheets.
 
 # What is in there?
 * Ubermetrics.py the python script describing the software
+* functions.py the python script containing the functions using the Google APIs and some utilities functions
 * Ubermetrics.xib the Cocoa interface
 * Ubermetrics.xcodeproj the xcode project used to build the Cocoa interface
 * setup.py the python script building the application
