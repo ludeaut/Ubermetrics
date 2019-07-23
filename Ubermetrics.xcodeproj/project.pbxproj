@@ -8,9 +8,6 @@
 
 /* Begin PBXFileReference section */
 		E9B6DE6322E0A596001A74B2 /* Ubermetrics.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Ubermetrics.py; sourceTree = "<group>"; };
-		E9B6DE6622E0A73F001A74B2 /* token.pickle */ = {isa = PBXFileReference; lastKnownFileType = file; name = token.pickle; path = "../Increase conversion value/token.pickle"; sourceTree = "<group>"; };
-		E9B6DE6722E0A80B001A74B2 /* client_secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = client_secrets.json; sourceTree = "<group>"; };
-		E9B6DE6822E0A859001A74B2 /* credentials.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = credentials.json; sourceTree = "<group>"; };
 		E9B6DE8722E1A874001A74B2 /* Ubermetrics.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Ubermetrics.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -20,9 +17,6 @@
 			children = (
 				E9B6DE8722E1A874001A74B2 /* Ubermetrics.xib */,
 				E9B6DE6322E0A596001A74B2 /* Ubermetrics.py */,
-				E9B6DE6722E0A80B001A74B2 /* client_secrets.json */,
-				E9B6DE6822E0A859001A74B2 /* credentials.json */,
-				E9B6DE6622E0A73F001A74B2 /* token.pickle */,
 			);
 			sourceTree = "<group>";
 		};
