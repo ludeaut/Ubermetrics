@@ -1,7 +1,7 @@
 {
-    "viewId": "0",
-    "startDate": "2019-07-21",
-    "endDate": "2019-07-22",
+    "viewId": "B",
+    "startDate": "2019-06-01",
+    "endDate": "2019-06-30",
     "metrics": "sessions",
     "dimensions": "channelGrouping",
     "sort": "sessions_desc",
@@ -9,6 +9,9 @@
     "maxResults": "5",
     "spreadsheetId": "1BMrOh20xeuiMS_6t-Axxr_R09UYLREaHPIdr-N-7tvs",
     "sheetName": "Sheet2",
-    "range": "B5",
-    "checkBox": 1
+    "range": "C2",
+    "checkBoxNumericValues": 1,
+    "spreadsheetIdStack": "1BMrOh20xeuiMS_6t-Axxr_R09UYLREaHPIdr-N-7tvs",
+    "sheetNameStack": "Sheet2",
+    "checkBoxSpreadsheetData": 1
 }

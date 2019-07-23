@@ -33,7 +33,11 @@ class UbermetricsController(NSWindowController):
     sheetNameTextField = objc.IBOutlet()
     rangeTextField = objc.IBOutlet()
 
-    checkBox = objc.IBOutlet()
+    checkBoxNumericValues = objc.IBOutlet()
+
+    spreadsheetIdStackField = objc.IBOutlet()
+    sheetNameStackField = objc.IBOutlet()
+    checkBoxSpreadsheetData = objc.IBOutlet()
 
     def windowDidLoad(self):
         NSWindowController.windowDidLoad(self)
@@ -55,6 +59,19 @@ class UbermetricsController(NSWindowController):
         # Get previous entered values
         with open(self.dirpath + 'temp.json', 'r+') as f:
     	       self.temp = json.load(f)
+
+        # Get data already in the first sheet
+        self.spreadsheetIdStack = self.temp["spreadsheetIdStack"]
+        if self.spreadsheetIdStack != '':
+            self.spreadsheetIdStackField.setStringValue_(self.spreadsheetIdStack)
+        self.sheetNameStack = self.temp["sheetNameStack"]
+        if self.sheetNameStack != '':
+            self.sheetNameStackField.setStringValue_(self.sheetNameStack)
+        self.checkBoxSpreadsheetData.setState_(int(self.temp["checkBoxSpreadsheetData"]))
+        if self.spreadsheetIdStack != '' and self.sheetNameStack != '' and int(self.checkBoxSpreadsheetData.state()) == 1:
+            self.data = self.serviceSheets.spreadsheets().values().get(spreadsheetId=self.spreadsheetIdStack, range=self.sheetNameStack).execute().get('values')
+        else:
+            self.data = ''
 
         # Arguments for getValue function
         self.viewId = self.temp["viewId"]
@@ -97,7 +114,7 @@ class UbermetricsController(NSWindowController):
             self.rangeTextField.setStringValue_(self.range)
 
         # Checkbox to choose to display only numeric values or no
-        self.checkBox.setState_(int(self.temp["checkBox"]))
+        self.checkBoxNumericValues.setState_(int(self.temp["checkBoxNumericValues"]))
 
         # self.startDatePicker.setTimeZone_(NSTimeZone.localTimeZone())
         # NSLog(str(self.startDatePicker.timeZone()))
@@ -131,7 +148,7 @@ class UbermetricsController(NSWindowController):
     def enterViewID_(self, sender): # Must have 7 to 9 figures to write
         if self.viewIdTextField.stringValue(): #.isnumeric()
             self.viewId = self.viewIdTextField.stringValue()
-            self.temp["viewId"] = str(self.viewId)
+            self.temp["viewId"] = self.viewIdTextField.stringValue()
         else:
             self.value = 'Enter a number please'
             self.updateDisplay()
@@ -209,8 +226,28 @@ class UbermetricsController(NSWindowController):
             self.updateDisplay()
 
     @objc.IBAction
+    def setSpreadsheetIDStack_(self, sender):
+        if self.spreadsheetIdStackField.stringValue():
+            self.spreadsheetIdStack = self.spreadsheetIdStackField.stringValue()
+            self.temp["spreadsheetIdStack"] = str(self.spreadsheetIdStack)
+        else:
+            self.value = 'Enter a correct Spreadsheet Id'
+            self.updateDisplay()
+
+    @objc.IBAction
+    def setSheetNameStack_(self, sender):
+        if self.sheetNameStackField.stringValue():
+            self.sheetNameStack = self.sheetNameStackField.stringValue()
+            self.temp["sheetNameStack"] = str(self.sheetNameStack)
+        else:
+            self.value = 'This sheet does not exist'
+            self.updateDisplay()
+
+    @objc.IBAction
     def displayValue_(self, sender):
         if self.viewId != 0 and self.startDate <= self.endDate and self.metrics != '':
+            if len(self.viewIdTextField.stringValue()) == 1 and int(self.checkBoxSpreadsheetData.state()) == 1:
+                self.viewId = ','.join([client[ord(self.viewIdTextField.stringValue().lower())-97] for client in self.data[1:]]).replace(' ', '')
             self.value = ''
             viewIds = self.viewId.split(',')
             for viewId in viewIds:
@@ -223,7 +260,7 @@ class UbermetricsController(NSWindowController):
                     self.values += value
                 with open(self.dirpath + 'temp.json', 'w') as f:
                     json.dump(self.temp, f, indent=4)
-                self.value += '\n' + '---------------------' + '\n'
+                self.value += '\n'
         else:
             if self.viewId == 0:
                 self.value = 'You must enter a view ID'
@@ -236,8 +273,8 @@ class UbermetricsController(NSWindowController):
     @objc.IBAction
     def fillSpreadsheet_(self, sender):
         if self.values != []:
-            self.temp["checkBox"] = self.checkBox.state()
-            if str(self.checkBox.state()) == '1':
+            self.temp["checkBoxNumericValues"] = self.checkBoxNumericValues.state()
+            if int(self.checkBoxNumericValues.state()) == 1:
                 functions.fill_spreadsheet(self.serviceSheets, self.spreadsheetId, self.sheetName, self.range, [[value[1]] for value in self.values])
             else:
                 functions.fill_spreadsheet(self.serviceSheets, self.spreadsheetId, self.sheetName, self.range, self.values)
@@ -254,7 +291,12 @@ class UbermetricsController(NSWindowController):
         self.updateDisplay()
 
     def updateDisplay(self):
-        self.valueTextField.setStringValue_(self.value)
+        if self.value.count('\n') > 64:
+            self.valueTextField.setStringValue_('\n'.join(self.value.split('\n')[:64])+'\n and ' + str(self.value.count('\n')-64) + ' others values...')
+        else:
+            self.valueTextField.setStringValue_(self.value)
+        if self.spreadsheetIdStack != '' and self.sheetNameStack != '' and int(self.checkBoxSpreadsheetData.state()) == 1:
+            self.data = self.serviceSheets.spreadsheets().values().get(spreadsheetId=self.spreadsheetIdStack, range=self.sheetNameStack).execute().get('values')
 
 if __name__ == '__main__':
 

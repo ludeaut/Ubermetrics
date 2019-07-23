@@ -31,7 +31,6 @@ Don't forget to add the JSON files in the working directory.
 * Add documentation
 * Add requirement indication on the UI
 * Add segments filtering
-* Add possibility to fill fields from a spreadsheet
 * Add some conditions on input
 * Set a back up of the data?
 
