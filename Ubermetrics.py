@@ -50,8 +50,8 @@ class UbermetricsController(NSWindowController):
         scopeAnalytics = ['https://www.googleapis.com/auth/analytics.readonly']
 
         # Authenticate and construct services.
+        self.serviceAnalytics = functions.get_service('analytics', 'v3', scopeAnalytics, self.dirpath + 'credentials.json')
         self.serviceSheets = functions.get_service('sheets', 'v4', scopeSheets, self.dirpath + 'credentials.json')
-        self.serviceAnalytics = functions.get_service('analytics', 'v3', scopeAnalytics, self.dirpath + 'client_secrets.json')
 
         # Value to display
         self.value = ''
