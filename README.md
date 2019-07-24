@@ -17,7 +17,11 @@ and eventually to paste it in one of your Google Spreadsheets.
 * You may also need to install some libraries. I don't remember every one I installed so ask or tell me if I forgot one.
 Here are the commands to run:
   * sudo pip3 install --upgrade google-api-python-client
+  * sudo pip3 install oauth2client
+  * sudo pip3 install httplib2
   * sudo pip3 install py2app
+  * sudo pip3 install pyobjc-core # You may not need this one.
+  * sudo pip3 install pyobjc-framework-cocoa # You may not need this one.
 * In order to use the different API, you will have to start a Google project and to create credentials.
   Everything you need to know to do it is here: https://console.developers.google.com/apis/credentials.
   Don't forget to add the JSON file in the working directory.
