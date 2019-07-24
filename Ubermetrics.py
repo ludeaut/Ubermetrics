@@ -68,10 +68,6 @@ class UbermetricsController(NSWindowController):
         if self.sheetNameStack != '':
             self.sheetNameStackField.setStringValue_(self.sheetNameStack)
         self.checkBoxSpreadsheetData.setState_(int(self.temp["checkBoxSpreadsheetData"]))
-        if self.spreadsheetIdStack != '' and self.sheetNameStack != '' and int(self.checkBoxSpreadsheetData.state()) == 1:
-            self.data = self.serviceSheets.spreadsheets().values().get(spreadsheetId=self.spreadsheetIdStack, range=self.sheetNameStack).execute().get('values')
-        else:
-            self.data = ''
 
         # Arguments for getValue function
         self.viewId = self.temp["viewId"]
@@ -199,7 +195,7 @@ class UbermetricsController(NSWindowController):
             self.updateDisplay()
 
     @objc.IBAction
-    def setSpreadsheetID_(self, sender):
+    def setSpreadsheetID_(self, sender): # RegEx ([a-zA-Z0-9-_]+)
         if self.spreadsheetIdTextField.stringValue():
             self.spreadsheetId = self.spreadsheetIdTextField.stringValue()
             self.temp["spreadsheetId"] = str(self.spreadsheetId)
@@ -226,7 +222,7 @@ class UbermetricsController(NSWindowController):
             self.updateDisplay()
 
     @objc.IBAction
-    def setSpreadsheetIDStack_(self, sender):
+    def setSpreadsheetIDStack_(self, sender): # RegEx ([a-zA-Z0-9-_]+)
         if self.spreadsheetIdStackField.stringValue():
             self.spreadsheetIdStack = self.spreadsheetIdStackField.stringValue()
             self.temp["spreadsheetIdStack"] = str(self.spreadsheetIdStack)
@@ -246,8 +242,11 @@ class UbermetricsController(NSWindowController):
     @objc.IBAction
     def displayValue_(self, sender):
         if self.viewId != 0 and self.startDate <= self.endDate and self.metrics != '':
-            if len(self.viewIdTextField.stringValue()) == 1 and int(self.checkBoxSpreadsheetData.state()) == 1:
-                self.viewId = ','.join([client[ord(self.viewIdTextField.stringValue().lower())-97] for client in self.data[1:]]).replace(' ', '')
+            if int(self.checkBoxSpreadsheetData.state()) == 1:
+                self.viewId, self.metrics, self.dimensions, self.sort, self.filters, self.maxResults \
+                = functions.get_data_from_spreadsheet([self.viewIdTextField.stringValue(), self.metricsTextField.stringValue(), \
+                self.dimensionsTextField.stringValue(), self.sortTextField.stringValue(), self.filtersTextField.stringValue(), \
+                self.maxResultsTextField.stringValue()], self.serviceSheets, self.spreadsheetIdStack, self.sheetNameStack)
             self.value = ''
             viewIds = self.viewId.split(',')
             for viewId in viewIds:
@@ -295,8 +294,6 @@ class UbermetricsController(NSWindowController):
             self.valueTextField.setStringValue_('\n'.join(self.value.split('\n')[:64])+'\n and ' + str(self.value.count('\n')-64) + ' others values...')
         else:
             self.valueTextField.setStringValue_(self.value)
-        if self.spreadsheetIdStack != '' and self.sheetNameStack != '' and int(self.checkBoxSpreadsheetData.state()) == 1:
-            self.data = self.serviceSheets.spreadsheets().values().get(spreadsheetId=self.spreadsheetIdStack, range=self.sheetNameStack).execute().get('values')
 
 if __name__ == '__main__':
 

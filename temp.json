@@ -1,8 +1,8 @@
 {
-    "viewId": "B",
+    "viewId": "B2:B",
     "startDate": "2019-06-01",
     "endDate": "2019-06-30",
-    "metrics": "sessions",
+    "metrics": "G24",
     "dimensions": "channelGrouping",
     "sort": "sessions_desc",
     "filters": "channelGrouping==Organic Search",
@@ -12,6 +12,6 @@
     "range": "D2",
     "checkBoxNumericValues": 1,
     "spreadsheetIdStack": "1BMrOh20xeuiMS_6t-Axxr_R09UYLREaHPIdr-N-7tvs",
-    "sheetNameStack": "Sheet1",
+    "sheetNameStack": "Sheet2",
     "checkBoxSpreadsheetData": 1
 }

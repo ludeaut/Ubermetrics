@@ -37,14 +37,22 @@ Here are the commands to run:
 * Add segments filtering
 * Add some conditions on input
 * Set a back up of the data?
+* Change date range input?
 
 # Note(s)
 * If all the required fields are filled but no value is displayed, there are multiple possibilities but the most common are:
  * You made a typing mistake,
  * You entered at least one value which doesn't exist,
  * You entered dimensions and/or metrics which can't be used together,
- * You added filters and/or sort conditions on metrics/dimensions unused.
+ * You added filters and/or sort conditions on metrics/dimensions unused,
+ * You tried to read an empty case/range from a spreadsheet,
+ * You entered an incorrect case/range.
 * Ctrl-Z doesn't work so be careful when you select the spreadsheet to write in.
+* To developers, if you want to display a error other than syntax one, use try and except:
+  try:
+      ... # What you want to test
+  except (RuntimeError, NameError, TypeError) as e:
+      NSLog(str(e))
 
 
 # Documentation

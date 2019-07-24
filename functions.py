@@ -11,6 +11,7 @@ import argparse
 import sys
 from datetime import date, timedelta
 import os
+import re
 
 def get_service(api_name, api_version, scope, client_secrets_path):
     """Get a service that communicates to a Google API.
@@ -88,3 +89,30 @@ def fill_spreadsheet(service, spreadsheetId, sheetName, range, values):
 
 def str_from_list(list):
     return str(list).replace('],', ']\n')[1:-1]
+
+def get_data_from_spreadsheet(columns, service, spreadsheetId, sheetName):
+    data_from_spreadsheet = []
+    for column in columns:
+        if is_A1_notation_range(str(column)):
+            data = service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range=sheetName + '!' + str(column)).execute().get('values')
+            data_from_spreadsheet.append(','.join([item[0] for item in data]).replace(' ', ''))
+        else:
+            data_from_spreadsheet.append(column)
+    return data_from_spreadsheet
+
+def is_A1_notation_range(str):
+    pattern = "([A-Z]?[1-9][0-9]*)|([A-Z])"
+    str = str.split(':')
+    for string in str:
+        if re.search(pattern, string) == None:
+            return False
+    if re.search('[A-Z]([1-9][0-9]*)', str[0]) != None and re.search('[A-Z]([1-9][0-9]*)', str[0]).group() == str[0]:
+        return True
+    elif re.search('[A-Z]', str[0]) != None and re.search('[A-Z]', str[0]).group() == str[0]:
+        if len(str) == 1:
+            return False
+        return re.search("[A-Z]([1-9][0-9]*)?", str[1]) != None and re.search("[A-Z]([1-9][0-9]*)?", str[1]).group() == str[1]
+    else:
+        if len(str) == 1:
+            return False
+        return re.search("[A-Z]?[1-9][0-9]*", str[1]) != None and re.search("[A-Z]?[1-9][0-9]*", str[1]).group() == str[1]
