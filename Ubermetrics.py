@@ -61,13 +61,17 @@ class UbermetricsController(NSWindowController):
     	       self.temp = json.load(f)
 
         # Get data already in the first sheet
+        self.checkBoxSpreadsheetData.setState_(int(self.temp["checkBoxSpreadsheetData"]))
         self.spreadsheetIdStack = self.temp["spreadsheetIdStack"]
         if self.spreadsheetIdStack != '':
             self.spreadsheetIdStackField.setStringValue_(self.spreadsheetIdStack)
+        elif int(self.checkBoxSpreadsheetData.state()) == 1:
+            self.spreadsheetIdStackField.setStringValue_('Spreadsheet ID - Required -')
         self.sheetNameStack = self.temp["sheetNameStack"]
         if self.sheetNameStack != '':
             self.sheetNameStackField.setStringValue_(self.sheetNameStack)
-        self.checkBoxSpreadsheetData.setState_(int(self.temp["checkBoxSpreadsheetData"]))
+        elif int(self.checkBoxSpreadsheetData.state()) == 1:
+            self.sheetNameStackField.setStringValue_('Sheet name - Required -')
 
         # Arguments for getValue function
         self.viewId = self.temp["viewId"]
@@ -144,10 +148,11 @@ class UbermetricsController(NSWindowController):
     def enterViewID_(self, sender): # Must have 7 to 9 figures to write
         if self.viewIdTextField.stringValue(): #.isnumeric()
             self.viewId = self.viewIdTextField.stringValue()
-            self.temp["viewId"] = self.viewIdTextField.stringValue()
+            self.temp["viewId"] = str(self.viewId)
+            # self.value = 'Enter a number please'
         else:
-            self.value = 'Enter a number please'
-            self.temp["viewId"] = 0
+            self.viewId = 0
+            self.temp["viewId"] = str(self.viewId)
             self.updateDisplay()
 
     @objc.IBAction
@@ -155,9 +160,10 @@ class UbermetricsController(NSWindowController):
         if self.metricsTextField.stringValue():
             self.metrics = self.metricsTextField.stringValue()
             self.temp["metrics"] = str(self.metrics)
+            # self.value = 'This metric does not exist'
         else:
-            self.value = 'This metric does not exist'
-            self.temp["metrics"] = ""
+            self.metrics = ""
+            self.temp["metrics"] = str(self.metrics)
             self.updateDisplay()
 
     @objc.IBAction
@@ -165,9 +171,10 @@ class UbermetricsController(NSWindowController):
         if self.dimensionsTextField.stringValue():
             self.dimensions = self.dimensionsTextField.stringValue()
             self.temp["dimensions"] = str(self.dimensions)
+            # self.value = 'This dimension does not exist'
         else:
-            self.value = 'This dimension does not exist'
-            self.temp["dimensions"] = ""
+            self.dimensions = ""
+            self.temp["dimensions"] = str(self.dimensions)
             self.updateDisplay()
 
     @objc.IBAction
@@ -175,9 +182,10 @@ class UbermetricsController(NSWindowController):
         if self.sortTextField.stringValue():
             self.sort = self.sortTextField.stringValue()
             self.temp["sort"] = str(self.sort)
+            # self.value = 'This metric does not exist'
         else:
-            self.value = 'This metric does not exist'
-            self.temp["sort"] = ""
+            self.sort = ""
+            self.temp["sort"] = str(self.sort)
             self.updateDisplay()
 
     @objc.IBAction
@@ -185,19 +193,24 @@ class UbermetricsController(NSWindowController):
         if self.filtersTextField.stringValue():
             self.filters = self.filtersTextField.stringValue()
             self.temp["filters"] = str(self.filters)
+            # self.value = 'Enter a  correct filter'
         else:
-            self.value = 'Enter a  correct filter'
-            self.temp["filters"] = ""
+            self.filters = ""
+            self.temp["filters"] = str(self.filters)
             self.updateDisplay()
 
     @objc.IBAction
     def setMaxResults_(self, sender):
-        if self.maxResultsTextField.stringValue() and int(self.maxResultsTextField.stringValue()) > 0 and int(self.maxResultsTextField.stringValue()) < 1000:
-            self.maxResults = int(self.maxResultsTextField.stringValue())
-            self.temp["maxResults"] = str(self.maxResults)
+        if self.maxResultsTextField.stringValue():
+            if int(self.maxResultsTextField.stringValue()) > 0 and int(self.maxResultsTextField.stringValue()) < 1000:
+                self.maxResults = int(self.maxResultsTextField.stringValue())
+                self.temp["maxResults"] = str(self.maxResults)
+            else:
+                self.value = 'Choose a number between 1 and 1000'
+                self.updateDisplay()
         else:
-            self.value = 'Choose a number between 1 and 1000'
-            self.temp["maxResults"] = 0
+            self.maxResults = 0
+            self.temp["maxResults"] = str(self.maxResults)
             self.updateDisplay()
 
     @objc.IBAction
@@ -205,9 +218,10 @@ class UbermetricsController(NSWindowController):
         if self.spreadsheetIdTextField.stringValue():
             self.spreadsheetId = self.spreadsheetIdTextField.stringValue()
             self.temp["spreadsheetId"] = str(self.spreadsheetId)
+            # self.value = 'Enter a correct Spreadsheet Id'
         else:
-            self.value = 'Enter a correct Spreadsheet Id'
-            self.temp["spreadsheetId"] = ""
+            self.spreadsheetId = ""
+            self.temp["spreadsheetId"] = str(self.spreadsheetId)
             self.updateDisplay()
 
     @objc.IBAction
@@ -215,9 +229,10 @@ class UbermetricsController(NSWindowController):
         if self.sheetNameTextField.stringValue():
             self.sheetName = self.sheetNameTextField.stringValue()
             self.temp["sheetName"] = str(self.sheetName)
+            # self.value = 'This sheet does not exist'
         else:
-            self.value = 'This sheet does not exist'
-            self.temp["sheetName"] = ""
+            self.sheetName = ""
+            self.temp["sheetName"] = str(self.sheetName)
             self.updateDisplay()
 
     @objc.IBAction
@@ -225,9 +240,10 @@ class UbermetricsController(NSWindowController):
         if self.rangeTextField.stringValue():
             self.range = self.rangeTextField.stringValue()
             self.temp["range"] = str(self.range)
+            # self.value = 'Enter a correct range'
         else:
-            self.value = 'Enter a correct range'
-            self.temp["range"] = ""
+            self.range = ""
+            self.temp["range"] = str(self.range)
             self.updateDisplay()
 
     @objc.IBAction
@@ -235,9 +251,10 @@ class UbermetricsController(NSWindowController):
         if self.spreadsheetIdStackField.stringValue():
             self.spreadsheetIdStack = self.spreadsheetIdStackField.stringValue()
             self.temp["spreadsheetIdStack"] = str(self.spreadsheetIdStack)
+            # self.value = 'Enter a correct Spreadsheet Id'
         else:
-            self.value = 'Enter a correct Spreadsheet Id'
-            self.temp["spreadsheetIdStack"] = ""
+            self.spreadsheetIdStack = ""
+            self.temp["spreadsheetIdStack"] = str(self.spreadsheetIdStack)
             self.updateDisplay()
 
     @objc.IBAction
@@ -245,9 +262,10 @@ class UbermetricsController(NSWindowController):
         if self.sheetNameStackField.stringValue():
             self.sheetNameStack = self.sheetNameStackField.stringValue()
             self.temp["sheetNameStack"] = str(self.sheetNameStack)
+            # self.value = 'This sheet does not exist'
         else:
-            self.value = 'This sheet does not exist'
-            self.temp["sheetNameStack"] = ""
+            self.sheetNameStack = ""
+            self.temp["sheetNameStack"] = str(self.sheetNameStack)
             self.updateDisplay()
 
     @objc.IBAction
@@ -279,7 +297,7 @@ class UbermetricsController(NSWindowController):
 
     @objc.IBAction
     def fillSpreadsheet_(self, sender):
-        if self.values != []:
+        if self.values != [] and self.spreadsheetId != '' and self.sheetName != '' and self.range != '':
             self.temp["checkBoxNumericValues"] = self.checkBoxNumericValues.state()
             if int(self.checkBoxNumericValues.state()) == 1:
                 functions.fill_spreadsheet(self.serviceSheets, self.spreadsheetId, self.sheetName, self.range, [[value[1]] for value in self.values])
@@ -287,8 +305,19 @@ class UbermetricsController(NSWindowController):
                 functions.fill_spreadsheet(self.serviceSheets, self.spreadsheetId, self.sheetName, self.range, self.values)
             with open(self.dirpath + 'temp.json', 'w') as f:
                 json.dump(self.temp, f, indent=4)
+            self.value = "Done!"
         else:
-            self.value = 'You did not add values for the moment'
+            if self.values == []:
+                self.value = 'You did not add values for the moment'
+            elif self.spreadsheetId == '':
+                self.spreadsheetIdTextField.setStringValue_('Spreadsheet ID - Required -')
+                self.value = 'You must enter a spreadsheet ID'
+            elif self.sheetName == '':
+                self.sheetNameTextField.setStringValue_('Sheet name - Required -')
+                self.value = 'You must enter a sheet name'
+            else:
+                self.rangeTextField.setStringValue_('Range (e.g. A1:B2) - Required -')
+                self.value = 'You must enter a range'
         self.updateDisplay()
 
     @objc.IBAction
@@ -304,13 +333,19 @@ class UbermetricsController(NSWindowController):
             self.valueTextField.setStringValue_(self.value)
 
         if self.spreadsheetIdStack == '':
-            self.spreadsheetIdStackField.setStringValue_('Spreadsheet ID')
+            if int(self.checkBoxSpreadsheetData.state()) == 1:
+                self.spreadsheetIdStackField.setStringValue_('Spreadsheet ID - Required -')
+            else:
+                self.spreadsheetIdStackField.setStringValue_('Spreadsheet ID')
         if self.sheetNameStack == '':
-            self.sheetNameStackField.setStringValue_('Sheet name')
+            if int(self.checkBoxSpreadsheetData.state()) == 1:
+                self.sheetNameStackField.setStringValue_('Sheet name - Required -')
+            else:
+                self.sheetNameStackField.setStringValue_('Sheet name')
         if self.viewId == 0:
-            self.viewIdTextField.setStringValue_('View ID')
+            self.viewIdTextField.setStringValue_('View ID  - Required -')
         if self.metrics == '':
-            self.metricsTextField.setStringValue_('Metric(s)')
+            self.metricsTextField.setStringValue_('Metric(s)  - Required -')
         if self.dimensions == '':
             self.dimensionsTextField.setStringValue_('Dimension(s)')
         if self.sort == '':

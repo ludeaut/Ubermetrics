@@ -33,7 +33,6 @@ Here are the commands to run:
 
 # Todos (without specific order)
 * Add documentation
-* Add requirement indication on the UI
 * Update the messages displayed in case of empty/error input
 * Add segments filtering
 * Add some conditions on input
