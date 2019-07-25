@@ -95,7 +95,7 @@ class UbermetricsController(NSWindowController):
         if self.filters != '':
             self.filtersTextField.setStringValue_(self.filters)
         self.maxResults = self.temp["maxResults"]
-        if self.maxResults != '':
+        if self.maxResults != 0:
             self.maxResultsTextField.setStringValue_(self.maxResults)
 
         # Arguments for fillSpreadsheet function
@@ -147,6 +147,7 @@ class UbermetricsController(NSWindowController):
             self.temp["viewId"] = self.viewIdTextField.stringValue()
         else:
             self.value = 'Enter a number please'
+            self.temp["viewId"] = 0
             self.updateDisplay()
 
     @objc.IBAction
@@ -156,6 +157,7 @@ class UbermetricsController(NSWindowController):
             self.temp["metrics"] = str(self.metrics)
         else:
             self.value = 'This metric does not exist'
+            self.temp["metrics"] = ""
             self.updateDisplay()
 
     @objc.IBAction
@@ -165,6 +167,7 @@ class UbermetricsController(NSWindowController):
             self.temp["dimensions"] = str(self.dimensions)
         else:
             self.value = 'This dimension does not exist'
+            self.temp["dimensions"] = ""
             self.updateDisplay()
 
     @objc.IBAction
@@ -174,6 +177,7 @@ class UbermetricsController(NSWindowController):
             self.temp["sort"] = str(self.sort)
         else:
             self.value = 'This metric does not exist'
+            self.temp["sort"] = ""
             self.updateDisplay()
 
     @objc.IBAction
@@ -183,15 +187,17 @@ class UbermetricsController(NSWindowController):
             self.temp["filters"] = str(self.filters)
         else:
             self.value = 'Enter a  correct filter'
+            self.temp["filters"] = ""
             self.updateDisplay()
 
     @objc.IBAction
     def setMaxResults_(self, sender):
-        if int(self.maxResultsTextField.stringValue()) > 0 and int(self.maxResultsTextField.stringValue()) < 1000:
+        if self.maxResultsTextField.stringValue() and int(self.maxResultsTextField.stringValue()) > 0 and int(self.maxResultsTextField.stringValue()) < 1000:
             self.maxResults = int(self.maxResultsTextField.stringValue())
             self.temp["maxResults"] = str(self.maxResults)
         else:
             self.value = 'Choose a number between 1 and 1000'
+            self.temp["maxResults"] = 0
             self.updateDisplay()
 
     @objc.IBAction
@@ -201,6 +207,7 @@ class UbermetricsController(NSWindowController):
             self.temp["spreadsheetId"] = str(self.spreadsheetId)
         else:
             self.value = 'Enter a correct Spreadsheet Id'
+            self.temp["spreadsheetId"] = ""
             self.updateDisplay()
 
     @objc.IBAction
@@ -210,6 +217,7 @@ class UbermetricsController(NSWindowController):
             self.temp["sheetName"] = str(self.sheetName)
         else:
             self.value = 'This sheet does not exist'
+            self.temp["sheetName"] = ""
             self.updateDisplay()
 
     @objc.IBAction
@@ -219,6 +227,7 @@ class UbermetricsController(NSWindowController):
             self.temp["range"] = str(self.range)
         else:
             self.value = 'Enter a correct range'
+            self.temp["range"] = ""
             self.updateDisplay()
 
     @objc.IBAction
@@ -228,6 +237,7 @@ class UbermetricsController(NSWindowController):
             self.temp["spreadsheetIdStack"] = str(self.spreadsheetIdStack)
         else:
             self.value = 'Enter a correct Spreadsheet Id'
+            self.temp["spreadsheetIdStack"] = ""
             self.updateDisplay()
 
     @objc.IBAction
@@ -237,6 +247,7 @@ class UbermetricsController(NSWindowController):
             self.temp["sheetNameStack"] = str(self.sheetNameStack)
         else:
             self.value = 'This sheet does not exist'
+            self.temp["sheetNameStack"] = ""
             self.updateDisplay()
 
     @objc.IBAction
@@ -294,6 +305,29 @@ class UbermetricsController(NSWindowController):
             self.valueTextField.setStringValue_('\n'.join(self.value.split('\n')[:64])+'\n and ' + str(self.value.count('\n')-64) + ' others values...')
         else:
             self.valueTextField.setStringValue_(self.value)
+
+        if self.spreadsheetIdStack == '':
+            self.spreadsheetIdStackField.setStringValue_('Spreadsheet ID')
+        if self.sheetNameStack == '':
+            self.sheetNameStackField.setStringValue_('Sheet name')
+        if self.viewId == 0:
+            self.viewIdTextField.setStringValue_('View ID')
+        if self.metrics == '':
+            self.metricsTextField.setStringValue_('Metric(s)')
+        if self.dimensions == '':
+            self.dimensionsTextField.setStringValue_('Dimension(s)')
+        if self.sort == '':
+            self.sortTextField.setStringValue_('Sort choices')
+        if self.filters == '':
+            self.filtersTextField.setStringValue_('Filters')
+        if self.maxResults == 0:
+            self.maxResultsTextField.setStringValue_('Number max of results')
+        if self.spreadsheetId == '':
+            self.spreadsheetIdTextField.setStringValue_('Spreadsheet ID')
+        if self.sheetName == '':
+            self.sheetNameTextField.setStringValue_('Sheet name')
+        if self.range == '':
+            self.rangeTextField.setStringValue_('Range (e.g. A1:B2)')
 
 if __name__ == '__main__':
 
