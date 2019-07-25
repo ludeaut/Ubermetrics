@@ -255,22 +255,19 @@ class UbermetricsController(NSWindowController):
         if self.viewId != 0 and self.startDate <= self.endDate and self.metrics != '':
             if int(self.checkBoxSpreadsheetData.state()) == 1:
                 self.viewId, self.metrics, self.dimensions, self.sort, self.filters, self.maxResults \
-                = functions.get_data_from_spreadsheet([self.viewIdTextField.stringValue(), self.metricsTextField.stringValue(), \
-                self.dimensionsTextField.stringValue(), self.sortTextField.stringValue(), self.filtersTextField.stringValue(), \
-                self.maxResultsTextField.stringValue()], self.serviceSheets, self.spreadsheetIdStack, self.sheetNameStack)
+                = functions.get_data_from_spreadsheet([self.viewId, self.metrics, self.dimensions, self.sort, \
+                self.filters, self.maxResults], self.serviceSheets, self.spreadsheetIdStack, self.sheetNameStack)
             self.value = ''
             viewIds = self.viewId.split(',')
             for viewId in viewIds:
                 value = functions.get_value(self.serviceAnalytics, viewId, str(self.startDate), str(self.endDate), self.metrics, self.dimensions, self.sort, self.filters, self.maxResults)
-                if value == 0.0:
-                    self.value += functions.str_from_list([[value]])
-                    self.values += [['', value]]
-                else:
-                    self.value += functions.str_from_list(value)
-                    self.values += value
-                with open(self.dirpath + 'temp.json', 'w') as f:
-                    json.dump(self.temp, f, indent=4)
-                self.value += '\n'
+                self.value += functions.str_from_list(value) + '\n'
+                if len(value[0]) == 1:
+                    value[0].append('')
+                    value[0].reverse()
+                self.values += value
+            with open(self.dirpath + 'temp.json', 'w') as f:
+                json.dump(self.temp, f, indent=4)
         else:
             if self.viewId == 0:
                 self.value = 'You must enter a view ID'
