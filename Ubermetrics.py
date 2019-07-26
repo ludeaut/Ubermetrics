@@ -2,6 +2,7 @@
 # Contains the class corresponding to the application
 
 from apiclient.discovery import build
+from googleapiclient.errors import HttpError
 import httplib2
 from oauth2client import client
 from oauth2client import file
@@ -256,6 +257,7 @@ class UbermetricsController(NSWindowController):
             self.spreadsheetIdStack = ""
             self.temp["spreadsheetIdStack"] = str(self.spreadsheetIdStack)
             self.updateDisplay()
+        self.refreshArguments()
 
     @objc.IBAction
     def setSheetNameStack_(self, sender):
@@ -267,25 +269,29 @@ class UbermetricsController(NSWindowController):
             self.sheetNameStack = ""
             self.temp["sheetNameStack"] = str(self.sheetNameStack)
             self.updateDisplay()
+        self.refreshArguments()
 
     @objc.IBAction
     def displayValue_(self, sender):
         if self.viewId != 0 and self.startDate <= self.endDate and self.metrics != '':
-            if int(self.checkBoxSpreadsheetData.state()) == 1:
-                self.viewId, self.metrics, self.dimensions, self.sort, self.filters, self.maxResults \
-                = functions.get_data_from_spreadsheet([self.viewId, self.metrics, self.dimensions, self.sort, \
-                self.filters, self.maxResults], self.serviceSheets, self.spreadsheetIdStack, self.sheetNameStack)
-            self.value = ''
-            viewIds = self.viewId.split(',')
-            for viewId in viewIds:
-                value = functions.get_value(self.serviceAnalytics, viewId, str(self.startDate), str(self.endDate), self.metrics, self.dimensions, self.sort, self.filters, self.maxResults)
-                self.value += functions.str_from_list(value) + '\n'
-                if len(value[0]) == 1:
-                    value[0].append('')
-                    value[0].reverse()
-                self.values += value
-            with open(self.dirpath + 'temp.json', 'w') as f:
-                json.dump(self.temp, f, indent=4)
+            try:
+                if int(self.checkBoxSpreadsheetData.state()) == 1:
+                    self.viewId, self.metrics, self.dimensions, self.sort, self.filters, self.maxResults \
+                    = functions.get_data_from_spreadsheet([self.viewId, self.metrics, self.dimensions, self.sort, \
+                    self.filters, self.maxResults], self.serviceSheets, self.spreadsheetIdStack, self.sheetNameStack)
+                self.value = ''
+                viewIds = self.viewId.split(',')
+                for viewId in viewIds:
+                    value = functions.get_value(self.serviceAnalytics, viewId, str(self.startDate), str(self.endDate), self.metrics, self.dimensions, self.sort, self.filters, self.maxResults)
+                    self.value += functions.str_from_list(value) + '\n'
+                    if len(value[0]) == 1:
+                        value[0].append('')
+                        value[0].reverse()
+                    self.values += value
+                with open(self.dirpath + 'temp.json', 'w') as f:
+                    json.dump(self.temp, f, indent=4)
+            except (HttpError) as e:
+                self.value = json.loads(e.content.decode('utf-8'))['error']['message']
         else:
             if self.viewId == 0:
                 self.value = 'You must enter a view ID'
@@ -360,6 +366,14 @@ class UbermetricsController(NSWindowController):
             self.sheetNameTextField.setStringValue_('Sheet name')
         if self.range == '':
             self.rangeTextField.setStringValue_('Range (e.g. A1:B2)')
+
+    def refreshArguments(self):
+        self.viewId = self.temp["viewId"]
+        self.metrics = self.temp["metrics"]
+        self.dimensions = self.temp["dimensions"]
+        self.sort = self.temp["sort"]
+        self.filters = self.temp["filters"]
+        self.maxResults = str(self.temp["maxResults"])
 
 if __name__ == '__main__':
 
